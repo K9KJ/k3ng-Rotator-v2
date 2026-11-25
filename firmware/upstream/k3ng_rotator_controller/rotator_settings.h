@@ -1,7 +1,7 @@
 
 /* -------------------------- rotation settings ---------------------------------------*/
 
-#define AZIMUTH_STARTING_POINT_EEPROM_INITIALIZE 180      // the starting point in degrees of the azimuthal rotator - only used for initializing EEPROM the first time the code is run                                               
+#define AZIMUTH_STARTING_POINT_EEPROM_INITIALIZE 0 // Provisional until mechanical reference is verified
 #define AZIMUTH_ROTATION_CAPABILITY_EEPROM_INITIALIZE 450 // the default rotation capability of the rotator in degrees - only used for initializing EEPROM the first time the code is run
 
 /* 
@@ -160,8 +160,8 @@ You can tweak these, but read the online documentation!
 
 #define DISPLAY_DECIMAL_PLACES 0
 
-#define AZ_POSITION_ROTARY_ENCODER_DEG_PER_PULSE 0.5
-#define EL_POSITION_ROTARY_ENCODER_DEG_PER_PULSE 0.5
+#define AZ_POSITION_ROTARY_ENCODER_DEG_PER_PULSE 0.15 // Provisional 1:1 coupling, 600 P/R, 4x decoding
+#define EL_POSITION_ROTARY_ENCODER_DEG_PER_PULSE 0.15 // Provisional 1:1 coupling, 600 P/R, 4x decoding
 
 #define AZ_POSITION_PULSE_DEG_PER_PULSE 0.5
 #define EL_POSITION_PULSE_DEG_PER_PULSE 0.5

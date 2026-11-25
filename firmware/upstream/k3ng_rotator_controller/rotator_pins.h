@@ -18,8 +18,8 @@
 #define rotate_cw_ccw_pwm 0      // optional - PWM on CW and CCW output - set to 0 to disable (must be PWM capable pin)
 #define rotate_cw_freq 0         // optional - CW variable frequency output
 #define rotate_ccw_freq 0        // optional - CCW variable frequency output
-#define button_cw 0              // normally open button to ground for manual CW rotation (schematic pin: A2)
-#define button_ccw 0             // normally open button to ground for manual CCW rotation (schematic pin: A3)
+#define button_cw A0
+#define button_ccw A1
 #define serial_led 0             // LED blinks when command is received on serial port (set to 0 to disable)
 #define rotator_analog_az A0     // reads analog azimuth voltage from rotator - pin 4 on Yaesu connector
 #define azimuth_speed_voltage 0  // optional - PWM output for speed control voltage feed into rotator (on continually unlike rotate_cw_pwm and rotate_ccw_pwm)
@@ -47,8 +47,8 @@
   #define rotate_up_freq 0          // optional - UP variable frequency output
   #define rotate_down_freq 0        // optional - UP variable frequency output
   #define rotator_analog_el A1      // reads analog elevation voltage from rotator
-  #define button_up 0               // normally open button to ground for manual up elevation
-  #define button_down 0             // normally open button to ground for manual down rotation
+#define button_up A2
+#define button_down A3
   #define brake_el 0                // goes high to disengage elevation brake (set to 0 to disable)
   #define elevation_speed_voltage  0 // optional - PWM output for speed control voltage feed into rotator (on continually unlike rotate_up_pwm and rotate_down_pwm)
   #define el_stepper_motor_pulse 0
@@ -67,13 +67,13 @@
 #endif //FEATURE_EL_PRESET_ENCODER
 
 #if defined(FEATURE_AZ_POSITION_ROTARY_ENCODER) || defined(FEATURE_AZ_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY)
-  #define az_rotary_position_pin1 0                     // CW Encoder Pin
-  #define az_rotary_position_pin2 0                     // CCW Encoder Pin
+#define az_rotary_position_pin1 18
+#define az_rotary_position_pin2 19
 #endif //FEATURE_AZ_POSITION_ROTARY_ENCODER
 
 #if defined(FEATURE_EL_POSITION_ROTARY_ENCODER) || defined(FEATURE_EL_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY)
-  #define el_rotary_position_pin1 0                     // CW Encoder Pin
-  #define el_rotary_position_pin2 0                     // CCW Encoder Pin
+#define el_rotary_position_pin1 2
+#define el_rotary_position_pin2 3
 #endif //FEATURE_EL_POSITION_ROTARY_ENCODER
 
 #ifdef FEATURE_AZ_POSITION_PULSE_INPUT
@@ -91,12 +91,12 @@
 #endif
 
 //classic 4 bit LCD pins
-#define lcd_4_bit_rs_pin 12
-#define lcd_4_bit_enable_pin 11
-#define lcd_4_bit_d4_pin 5
-#define lcd_4_bit_d5_pin 4
-#define lcd_4_bit_d6_pin 3
-#define lcd_4_bit_d7_pin 2
+#define lcd_4_bit_rs_pin 41
+#define lcd_4_bit_enable_pin 39
+#define lcd_4_bit_d4_pin 43
+#define lcd_4_bit_d5_pin 45
+#define lcd_4_bit_d6_pin 47
+#define lcd_4_bit_d7_pin 49
 
 
 #ifdef FEATURE_JOYSTICK_CONTROL

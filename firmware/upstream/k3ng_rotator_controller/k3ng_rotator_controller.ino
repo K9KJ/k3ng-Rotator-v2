@@ -1114,6 +1114,10 @@
 #define CODE_VERSION "2023.10.06.2200"
 
 
+void update_moon_position();
+char *timezone_modified_clock_string();
+char *zulu_clock_string();
+char *coordinates_to_maidenhead(float latitude_degrees, float longitude_degrees);
 #include <avr/pgmspace.h>
 #include <EEPROM.h>
 #include <math.h>
