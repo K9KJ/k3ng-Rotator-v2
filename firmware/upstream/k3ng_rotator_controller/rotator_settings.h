@@ -139,15 +139,15 @@ You can tweak these, but read the online documentation!
 
 #define LCD_HEADING_ROW 2
 #define LCD_HEADING_FIELD_SIZE 20
-#define LCD_AZ_ONLY_HEADING_ROW 1
+#define LCD_AZ_ONLY_HEADING_ROW 2
 #define LCD_AZ_ONLY_HEADING_FIELD_SIZE 20
-#define LCD_EL_ONLY_HEADING_ROW 2
+#define LCD_EL_ONLY_HEADING_ROW 3
 #define LCD_EL_ONLY_HEADING_FIELD_SIZE 20
 #define LCD_STATUS_ROW 1
 #define LCD_STATUS_FIELD_SIZE 20
 #define LCD_DIRECTION_ROW 1
 #define LCD_HHMMSS_CLOCK_ROW 1
-#define LCD_HHMM_CLOCK_ROW 1
+#define LCD_HHMM_CLOCK_ROW 4
 #define PARKING_STATUS_DISPLAY_TIME_MS 5000
 
 #define AZ_BRAKE_DELAY 3000            // in milliseconds
