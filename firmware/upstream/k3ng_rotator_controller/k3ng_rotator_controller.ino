@@ -9674,6 +9674,7 @@ void read_elevation(byte force_read){
           debug.println(elevation);
         #endif // DEBUG_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY
 
+        encoder_pjrc_previous_el_position = encoder_pjrc_current_el_position;
         #ifdef OPTION_EL_POSITION_ROTARY_ENCODER_HARD_LIMIT
           if (configuration.last_elevation < 0){
             configuration.last_elevation = 0;
