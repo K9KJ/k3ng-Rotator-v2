@@ -67,8 +67,8 @@
 #endif //FEATURE_EL_PRESET_ENCODER
 
 #if defined(FEATURE_AZ_POSITION_ROTARY_ENCODER) || defined(FEATURE_AZ_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY)
-#define az_rotary_position_pin1 18
-#define az_rotary_position_pin2 19
+#define az_rotary_position_pin1 19
+#define az_rotary_position_pin2 18
 #endif //FEATURE_AZ_POSITION_ROTARY_ENCODER
 
 #if defined(FEATURE_EL_POSITION_ROTARY_ENCODER) || defined(FEATURE_EL_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY)
