@@ -32,7 +32,7 @@
 #include <string.h>			//needed for strlen()
 #include <inttypes.h>
 
-#include "LCD.h"
+#include "lcd.h"
 #include "ST7036.h"
 
 // Class private constants and definition 
