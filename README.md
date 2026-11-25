@@ -1,6 +1,6 @@
 # K3NG Rotator V2
 
-This repository contains the controller PCB design and ATmega2560 firmware used with the azimuth/elevation rotator from **W2HRO and his company, Sub-lunar Systems**. The physical rotator is unmodified. The PCB design is the **brokebit K3NG Rotator V2**, and the firmware is a K9KJ fork of the [K3NG Rotator Controller](https://github.com/k3ng/k3ng_rotator_controller) firmware.
+This repository contains the controller PCB design and ATmega2560 firmware used with the azimuth/elevation rotator from **W2HRO and his company, Sub-lunar Systems**. The physical rotator is unmodified. The PCB design is the [**brokebit K3NG Rotator V2**] (https://github.com/brokebit/k3ng-Rotator-v2), and the firmware is a K9KJ fork of the [K3NG Rotator Controller](https://github.com/k3ng/k3ng_rotator_controller) firmware.
 
 ## Firmware
 
