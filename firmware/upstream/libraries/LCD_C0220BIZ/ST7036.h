@@ -36,7 +36,7 @@
 #include <inttypes.h>
 #include <Wire.h>
 #include "Print.h"
-#include "LCD.h"
+#include "lcd.h"
 
 
 #define _ST7036_VERSION       "1.2.0"
