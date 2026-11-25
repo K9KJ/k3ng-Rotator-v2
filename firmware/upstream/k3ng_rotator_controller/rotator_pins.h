@@ -72,8 +72,8 @@
 #endif //FEATURE_AZ_POSITION_ROTARY_ENCODER
 
 #if defined(FEATURE_EL_POSITION_ROTARY_ENCODER) || defined(FEATURE_EL_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY)
-#define el_rotary_position_pin1 2
-#define el_rotary_position_pin2 3
+#define el_rotary_position_pin1 3
+#define el_rotary_position_pin2 2
 #endif //FEATURE_EL_POSITION_ROTARY_ENCODER
 
 #ifdef FEATURE_AZ_POSITION_PULSE_INPUT
