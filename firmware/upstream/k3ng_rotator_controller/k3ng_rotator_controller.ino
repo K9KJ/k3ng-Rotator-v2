@@ -6562,6 +6562,20 @@ void update_lcd_display(){
       }
 
       #endif //#if defined(OPTION_USE_OLD_TIME_CODE)
+
+      #if defined(FEATURE_MOON_TRACKING)
+        if (LCD_COLUMNS >= 20 && LCD_HHMM_CLOCK_POSITION == LEFT) {
+          const unsigned long now = millis();
+          if (last_moon_tracking_check_time == 0 ||
+              now - last_moon_tracking_check_time >= LCD_MOON_TRACKING_UPDATE_INTERVAL) {
+            update_moon_position();
+            last_moon_tracking_check_time = now;
+          }
+          snprintf_P(workstring, sizeof(workstring), PSTR("Moon %03d %+03d"),
+                     (int)(lround(moon_azimuth) % 360), (int)lround(moon_elevation));
+          k3ngdisplay.print_right_fixed_field_size(workstring, LCD_HHMM_CLOCK_ROW-1, 14);
+        }
+      #endif
     }   
   #endif //defined(OPTION_DISPLAY_HHMM_CLOCK) && defined(FEATURE_CLOCK)
 
