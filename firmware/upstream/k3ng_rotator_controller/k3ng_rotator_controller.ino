@@ -1242,6 +1242,7 @@ char *coordinates_to_maidenhead(float latitude_degrees, float longitude_degrees)
 
 #if defined(FEATURE_AZ_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY) || defined(FEATURE_EL_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY)
   #include <Encoder.h>
+  #include "encoder_delta.h"
 #endif    
 
 #include "rotator.h"
@@ -1788,14 +1789,12 @@ struct config_t {
 
 #ifdef FEATURE_AZ_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY
   Encoder encoder_pjrc_az(az_rotary_position_pin1, az_rotary_position_pin2);
-  float encoder_pjrc_previous_az_position  = 0;
-  float encoder_pjrc_current_az_position;
+  int32_t encoder_pjrc_previous_az_position = 0;
 #endif
 
 #ifdef FEATURE_EL_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY
   Encoder encoder_pjrc_el(el_rotary_position_pin1, el_rotary_position_pin2);
-  float encoder_pjrc_previous_el_position  = 0;
-  float encoder_pjrc_current_el_position;
+  int32_t encoder_pjrc_previous_el_position = 0;
 #endif  
 
 #ifdef FEATURE_AUTOPARK
@@ -8297,26 +8296,24 @@ void read_azimuth(byte force_read){
 
 
     #if defined(FEATURE_AZ_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY)
-      encoder_pjrc_current_az_position = encoder_pjrc_az.read();
-      if ( (encoder_pjrc_current_az_position != encoder_pjrc_previous_az_position) ) 
-      {
-        configuration.last_azimuth = configuration.last_azimuth + ((encoder_pjrc_current_az_position - encoder_pjrc_previous_az_position) * (float)AZ_POSITION_ROTARY_ENCODER_DEG_PER_PULSE); 
+      const int32_t delta = consume_encoder_delta(encoder_pjrc_az.read(), encoder_pjrc_previous_az_position);
+      if (delta != 0) {
+        configuration.last_azimuth += delta * (float)AZ_POSITION_ROTARY_ENCODER_DEG_PER_PULSE;
           
         #ifdef DEBUG_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY 
-          if ((encoder_pjrc_current_az_position - encoder_pjrc_previous_az_position ) < 0){
+          if (delta < 0){
             debug.print("read_azimuth: AZ_POSITION_ROTARY_PJRC_ENCODER: CCW - ");
           } else{
             debug.print("read_azimuth: AZ_POSITION_ROTARY_PJRC_ENCODER: CW - ");
           } 
           debug.print("Encoder Count: ");
-          debug.print(encoder_pjrc_current_az_position);
+          debug.print(encoder_pjrc_previous_az_position);
           debug.print(" - configuration.last_azimuth : ");
           debug.print(configuration.last_azimuth );
           debug.print(" - raw_azimuth : ");
           debug.println(raw_azimuth);
         #endif // DEBUG_AZ_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY 
 
-        encoder_pjrc_previous_az_position = encoder_pjrc_current_az_position;
             
         #ifdef OPTION_AZ_POSITION_ROTARY_ENCODER_HARD_LIMIT
           if (configuration.last_azimuth < configuration.azimuth_starting_point){
@@ -9670,25 +9667,24 @@ void read_elevation(byte force_read){
 
 
     #ifdef FEATURE_EL_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY
-      encoder_pjrc_current_el_position = encoder_pjrc_el.read();
-      if (encoder_pjrc_current_el_position != encoder_pjrc_previous_el_position){
-        configuration.last_elevation = configuration.last_elevation + ((encoder_pjrc_current_el_position - encoder_pjrc_previous_el_position) * (float)EL_POSITION_ROTARY_ENCODER_DEG_PER_PULSE);
+      const int32_t delta = consume_encoder_delta(encoder_pjrc_el.read(), encoder_pjrc_previous_el_position);
+      if (delta != 0) {
+        configuration.last_elevation += delta * (float)EL_POSITION_ROTARY_ENCODER_DEG_PER_PULSE;
             
         #ifdef DEBUG_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY 
-          if ((encoder_pjrc_current_el_position - encoder_pjrc_previous_el_position ) < 0){
+          if (delta < 0){
             debug.print("read_elevation: EL_POSITION_ROTARY_PJRC_ENCODER: CCW/Down - ");
           } else { 
             debug.print("read_elevation: EL_POSITION_ROTARY_PJRC_ENCODER: CW/Up - ");
           } 
           debug.print("Encoder Count: ");
-          debug.print(encoder_pjrc_current_el_position);
+          debug.print(encoder_pjrc_previous_el_position);
           debug.print(" - configuration.last_elevation : ");
           debug.print(configuration.last_elevation );
           debug.print(" - raw_elevation : ");
           debug.println(elevation);
         #endif // DEBUG_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY
 
-        encoder_pjrc_previous_el_position = encoder_pjrc_current_el_position;
         #ifdef OPTION_EL_POSITION_ROTARY_ENCODER_HARD_LIMIT
           if (configuration.last_elevation < 0){
             configuration.last_elevation = 0;
@@ -9703,24 +9699,6 @@ void read_elevation(byte force_read){
           elevation = correct_elevation(elevation);
         #endif // FEATURE_ELEVATION_CORRECTION
         configuration_dirty = 1;
-        
-         #ifdef OPTION_EL_POSITION_ROTARY_ENCODER_HARD_LIMIT
-          if (configuration.last_elevation < 0){
-            configuration.last_elevation = 0;
-          }
-          if (configuration.last_elevation > ELEVATION_MAXIMUM_DEGREES){
-            configuration.last_elevation = ELEVATION_MAXIMUM_DEGREES;
-          }
-        #endif
-            
-        elevation = configuration.last_elevation;
-
-        #ifdef FEATURE_ELEVATION_CORRECTION
-          elevation = correct_elevation(elevation);
-        #endif // FEATURE_ELEVATION_CORRECTION
-
-        configuration_dirty = 1; 
-          
       }
     #endif // FEATURE_EL_POSITION_ROTARY_ENCODER_USE_PJRC_LIBRARY
 
